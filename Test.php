@@ -1,0 +1,70 @@
+<?php echo'
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        function getLocation() {
+            // Geolocation
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(ShowPosition);
+            } else {
+                //Geolocation is not supported by this browser
+            }
+        } 
+        var X = 0;
+        var Y = 0;
+        function ShowPosition(Position) {
+
+            var uluru = { lat: Position.coords.latitude, lng: Position.coords.longitude };
+            var map = new google.maps.Map(
+                document.getElementById("map"), { zoom: 13, center: uluru });
+            var marker = new google.maps.Marker({ position: uluru, map: map, icon:"fooddish.svg"});
+            var infowindow = new google.maps.InfoWindow({
+                content: "<h1>dddd</h1>"
+            });
+            marker.addListener("click", function () {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                
+                infowindow.open(map, marker);
+            });
+
+            marker.addListener("mouseout", function () {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                infowindow.close();
+            });
+
+            
+
+        }
+    </script>
+     
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px; /* The height is 400 pixels */
+            width: 100%; /* The width is the width of the web page */
+        }
+    </style>
+
+</head>
+<body onload="getLocation()">
+    <div id="map"></div>
+
+
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+
+
+</body>
+</html>'
+?>
